@@ -1,0 +1,23 @@
+{
+  "name": "Codec",
+  "short_name": "Codec",
+  "description": "Filament listens. Codec writes and reads the bytes. Booth speaks.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0e0e0c",
+  "theme_color": "#0e0e0c",
+  "icons": [
+    {
+      "src": "/icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

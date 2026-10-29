@@ -27,8 +27,6 @@ type StudioState = {
   boothF0: number;
   boothRate: number;
   setBoothVoice: (f0: number, rate: number) => void;
-  useHostVoice: boolean;
-  setUseHostVoice: (v: boolean) => void;
 };
 
 const PERSIST_KEY = "codec.studio";
@@ -38,7 +36,6 @@ type Persisted = {
   face: CodecFace;
   boothF0: number;
   boothRate: number;
-  useHostVoice: boolean;
 };
 
 export const useStudio = create<StudioState>((set) => ({
@@ -63,8 +60,6 @@ export const useStudio = create<StudioState>((set) => ({
   boothF0: 148,
   boothRate: 1,
   setBoothVoice: (boothF0, boothRate) => set({ boothF0, boothRate }),
-  useHostVoice: false,
-  setUseHostVoice: (useHostVoice) => set({ useHostVoice }),
 }));
 
 export function hydrateStudio() {
@@ -84,7 +79,6 @@ export function hydrateStudio() {
         typeof d.boothRate === "number" && d.boothRate >= 0.7 && d.boothRate <= 1.4
           ? d.boothRate
           : 1,
-      useHostVoice: d.useHostVoice === true,
     });
   } catch {
     /* ignore bad local state */
@@ -98,7 +92,6 @@ export function persistStudio(s: StudioState) {
     face: s.face,
     boothF0: s.boothF0,
     boothRate: s.boothRate,
-    useHostVoice: s.useHostVoice,
   };
   localStorage.setItem(PERSIST_KEY, JSON.stringify(payload));
 }

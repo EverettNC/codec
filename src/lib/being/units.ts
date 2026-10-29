@@ -1,5 +1,5 @@
 /**
- * Attached units for the pipeline. Kaldi 16 kHz front-end + codec code units.
+ * Attached units for the pipeline. 16 kHz front-end + codec code units.
  * Conversions are the ones already in the lattice — not a new architecture equation.
  */
 
@@ -69,7 +69,7 @@ export const RESTORE_FRAMES = SHAKER_FRAMES;
 export const DWELL0_FRAMES = SHAKER_FRAMES;
 
 export const LATTICE: LatticeQty[] = [
-  { name: "fs", value: SAMPLE_RATE, unit: "Hz", note: "Kaldi 16 kHz" },
+  { name: "fs", value: SAMPLE_RATE, unit: "Hz", note: "16 kHz front-end" },
   { name: "Nyquist", value: NYQUIST, unit: "Hz", note: "fs / 2" },
   { name: "hop", value: HOP, unit: "samples", note: `${HOP_MS} ms` },
   { name: "win", value: WIN, unit: "samples", note: `${WIN_MS} ms Hamming` },

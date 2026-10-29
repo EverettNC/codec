@@ -2,7 +2,7 @@
  * Zipformer-shaped acoustic encoder.
  *
  * Not a 65M-param checkpoint — those don't fit in a browser tab. This is the
- * architecture Kaldi was retired for: U-Net stacks, multi-band self-attention
+ * architecture itself: U-Net stacks, multi-band self-attention
  * over 80-dim fbank, depthwise temporal conv, residual bypass. Attention is
  * acoustic (cosine in mel bands + locality), so similar phones actually bind.
  */
@@ -170,11 +170,8 @@ export type EncoderResult = {
   attn: Float32Array;
   attnN: number;
   posteriors: Float32Array[];
-  kaldiPost: Float32Array[];
   ctcPath: number[];
-  kaldiPath: number[];
   phones: string[];
-  kaldiPhones: string[];
   embedding: Float32Array;
 };
 
@@ -338,11 +335,8 @@ export function encode(frames: Frame[]): EncoderResult {
       attn: empty,
       attnN: 0,
       posteriors: [],
-      kaldiPost: [],
       ctcPath: [],
-      kaldiPath: [],
       phones: [],
-      kaldiPhones: [],
       embedding: new Float32Array(ENC_DIM * 2),
     };
   }
@@ -374,10 +368,8 @@ export function encode(frames: Frame[]): EncoderResult {
   const s4 = mix(s2, upsample2(s3, s2.length), 0.6, 0.4);
   const out = mix(s1a, upsample2(s4, s1a.length), 0.7, 0.3);
 
-  const kaldiPost = classifyFrames(frames, 0);
   const posteriors = classifyFrames(frames, 3);
   const ctcPath = argmaxPath(posteriors);
-  const kaldiPath = argmaxPath(kaldiPost);
 
   return {
     stacks: [
@@ -392,11 +384,8 @@ export function encode(frames: Frame[]): EncoderResult {
     attn,
     attnN: s1a.length,
     posteriors,
-    kaldiPost,
     ctcPath,
-    kaldiPath,
     phones: idsToGlyphs(ctcPath),
-    kaldiPhones: idsToGlyphs(kaldiPath),
     embedding: statsPool(out),
   };
 }

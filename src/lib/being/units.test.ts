@@ -36,7 +36,7 @@ import {
 } from "./stasis.ts";
 
 describe("attached units", () => {
-  it("recovers the Kaldi lattice", () => {
+  it("recovers the front-end lattice", () => {
     assert.equal(SAMPLE_RATE, 16_000);
     assert.equal(NYQUIST, 8_000);
     assert.equal(HOP_MS, 10);
@@ -54,7 +54,7 @@ describe("attached units", () => {
     assert.ok(LATTICE.some((q) => q.name === "fs" && q.unit === "Hz"));
   });
 
-  it("round-trips Hz ↔ Mel (HTK / Kaldi)", () => {
+  it("round-trips Hz to Mel (HTK)", () => {
     const hz = 440;
     assert.ok(Math.abs(melToHz(hzToMel(hz)) - hz) < 1e-6);
     assert.ok(Math.abs(hzToMel(1000) - 1000) < 2);
